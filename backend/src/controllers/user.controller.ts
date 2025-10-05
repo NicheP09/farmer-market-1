@@ -10,13 +10,10 @@ const OTP_TTL_MS = 10 * 60 * 1000;
 // Generate a 6-digit OTP
 const generateOtp = () => Math.floor(100000 + Math.random() * 900000).toString();
 
-// JWT secret and expiration (from .env or defaults)
 const jwtSecret: Secret = process.env.JWT_SECRET || "secret";
 const jwtExpiry: string = process.env.JWT_EXPIRATION || "1d";
 
-/**
- * Register a Farmer
- */
+
 export const registerFarmer = async (req: Request, res: Response) => {
   try {
     const { firstName, lastName, phoneNumber, email, password, confirmPassword, agreeToTerms } = req.body;
@@ -43,7 +40,7 @@ export const registerFarmer = async (req: Request, res: Response) => {
       email,
       password: hashedPassword,
       role: "farmer",
-      isVerified: true, // ✅ No OTP required for signup
+      isVerified: true, 
     });
 
     return res.status(201).json({ message: "Farmer registered successfully" });
@@ -53,9 +50,7 @@ export const registerFarmer = async (req: Request, res: Response) => {
   }
 };
 
-/**
- * Register a Buyer
- */
+
 export const registerBuyer = async (req: Request, res: Response) => {
   try {
     const { fullName, phoneNumber, email, password, confirmPassword, agreeToTerms } = req.body;
@@ -82,7 +77,7 @@ export const registerBuyer = async (req: Request, res: Response) => {
       email,
       password: hashedPassword,
       role: "buyer",
-      isVerified: true, // ✅ No OTP required for signup
+      isVerified: true, 
     });
 
     return res.status(201).json({ message: "Buyer registered successfully" });
@@ -92,9 +87,7 @@ export const registerBuyer = async (req: Request, res: Response) => {
   }
 };
 
-/**
- * Register Logistics
- */
+
 export const registerLogistics = async (req: Request, res: Response) => {
   try {
     const { name, phoneNumber, email, password, confirmPassword, agreeToTerms } = req.body;
@@ -121,7 +114,7 @@ export const registerLogistics = async (req: Request, res: Response) => {
       email,
       password: hashedPassword,
       role: "logistics",
-      isVerified: true, // ✅ Directly verified, no OTP on signup
+      isVerified: true, 
     });
 
     return res.status(201).json({ message: "Logistics registered successfully" });
@@ -131,9 +124,7 @@ export const registerLogistics = async (req: Request, res: Response) => {
   }
 };
 
-/**
- * Login
- */
+
 export const login = async (req: Request, res: Response) => {
   try {
     const { email, password } = req.body;
@@ -168,9 +159,7 @@ export const login = async (req: Request, res: Response) => {
   }
 };
 
-/**
- * Verify Email with OTP (still available if you need it later)
- */
+
 export const verifyEmail = async (req: Request, res: Response) => {
   try {
     const { email, otp } = req.body;
@@ -195,9 +184,7 @@ export const verifyEmail = async (req: Request, res: Response) => {
   }
 };
 
-/**
- * Resend OTP (optional, used for forgot password)
- */
+
 export const resendOtp = async (req: Request, res: Response) => {
   try {
     const { email } = req.body;
@@ -224,9 +211,6 @@ export const resendOtp = async (req: Request, res: Response) => {
   }
 };
 
-/**
- * Forgot Password (send OTP)
- */
 export const forgotPassword = async (req: Request, res: Response) => {
   try {
     const { email } = req.body;
@@ -253,9 +237,7 @@ export const forgotPassword = async (req: Request, res: Response) => {
   }
 };
 
-/**
- * Reset Password with OTP
- */
+
 export const resetPassword = async (req: Request, res: Response) => {
   try {
     const { email, otp, newPassword, confirmPassword } = req.body;

@@ -12,7 +12,6 @@ import {
 
 const router = Router();
 
-// Separate endpoints that match frontend buttons
 router.post("/register/farmer", registerFarmer);
 router.post("/register/buyer", registerBuyer);
 router.post("/register/logistics", registerLogistics);
