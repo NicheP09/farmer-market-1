@@ -51,15 +51,7 @@ const SignInput = () => {
       setSuccess(null);
 
      
-      const baseURL =
-        import.meta.env.VITE_API_BASE_URL?.replace(/\/$/, "") ||
-        "https://farmer-market-1.vercel.app";
-
-      const response = await api.post(
-        `${baseURL}/api/users/login`,
-        formData,
-        { headers: { "Content-Type": "application/json" } }
-      );
+    const response = await api.post("/api/users/login", formData);
 
       const data = response.data;
       localStorage.setItem("token", data.token);
