@@ -95,49 +95,56 @@ const BuyerReg: React.FC = () => {
     form.agreeToTerms;
 
   // submit
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    setMessage("");
-    setIsError(false);
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  setLoading(true);
+  setMessage("");
+  setIsError(false);
 
-    try {
-      validateForm();
-      const payload = {
-        fullName: form.fullName,
-        phoneNumber: form.phoneNumber,
-        email: form.email,
-        password: form.password,
-        confirmPassword: form.confirmPassword,
-        agreeToTerms: form.agreeToTerms,
-      };
-      const res = await api.post(
-        "/api/users/register/buyer",
-        payload,
-        { headers: { "Content-Type": "application/json" } }
-      );
-      setMessage(res.data.message || "Account created successfully 🎉");
-      setPhone(form.phoneNumber);
-      setTimeout(() => navigate("/verificationcode"), 1500);
-    } catch (error: any) {
-      if (axios.isAxiosError(error)) {
-        if (error.response) {
-          setMessage(error.response.data?.message || "Server error occurred");
-        } else if (error.request) {
-          setMessage("No response from server. Check your connection.");
-        } else {
-          setMessage("Error setting up request. Try again.");
-        }
-      } else if (error instanceof Error) {
-        setMessage(error.message);
+  try {
+    validateForm();
+    const payload = {
+      fullName: form.fullName,
+      phoneNumber: form.phoneNumber,
+      email: form.email,
+      password: form.password,
+      confirmPassword: form.confirmPassword,
+      agreeToTerms: form.agreeToTerms,
+    };
+
+    const baseURL =
+      import.meta.env.VITE_API_BASE_URL?.replace(/\/$/, "") ||
+      "https://farmer-market-1.vercel.app";
+
+    const response = await api.post(
+      `${baseURL}/api/users/register/buyer`,
+      payload,
+      { headers: { "Content-Type": "application/json" } }
+    );
+
+    setMessage(response.data.message || "Account created successfully 🎉");
+    setPhone(form.phoneNumber);
+    setTimeout(() => navigate("/verificationcode"), 1500);
+  } catch (error: any) {
+    if (axios.isAxiosError(error)) {
+      if (error.response) {
+        setMessage(error.response.data?.message || "Server error occurred");
+      } else if (error.request) {
+        setMessage("No response from server. Check your connection.");
       } else {
-        setMessage("Unexpected error. Please try again.");
+        setMessage("Error setting up request. Try again.");
       }
-      setIsError(true);
-    } finally {
-      setLoading(false);
+    } else if (error instanceof Error) {
+      setMessage(error.message);
+    } else {
+      setMessage("Unexpected error. Please try again.");
     }
-  };
+    setIsError(true);
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   return (
     <div className="bg-light font-dm-sans min-h-screen w-full flex flex-col md:grid md:grid-cols-[1fr_1.4fr] max-w-6xl mx-auto overflow-hidden">
