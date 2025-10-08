@@ -22,7 +22,7 @@ const allowedOrigins = [
   "http://localhost:5173",
   "http://localhost:3000",
   "https://farmer-market-1-front.vercel.app",
-  "https://your-custom-domain.com"
+  "https://farmer-market-1-front-easyjqdp0-peters-projects-122ba8b0.vercel.app"
 ];
 
 // ORS middleware
