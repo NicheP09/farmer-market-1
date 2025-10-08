@@ -17,15 +17,15 @@ connectDB();
 
 const PORT = process.env.PORT || 3500;
 
-// ✅ Allowed origins (local + production)
+//  Allowed origins (local + production)
 const allowedOrigins = [
   "http://localhost:5173",
   "http://localhost:3000",
-  "https://farmer-market.vercel.app", // your Vercel frontend URL
-  "https://your-custom-domain.com" // optional custom domain
+  "https://farmer-market-1-front.vercel.app",
+  "https://your-custom-domain.com"
 ];
 
-// ✅ CORS middleware
+// ORS middleware
 app.use(
   cors({
     origin: (origin, callback) => {

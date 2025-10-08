@@ -51,11 +51,11 @@ const SignInput = () => {
       setError(null);
       setSuccess(null);
 
-      const response = await api.post(
-        "https://farmer-market-1.vercel.app/api/users/login",
-        formData,
+     const response = await api.post(
+       `${import.meta.env.VITE_API_BASE_URL}/api/users/login`,
+          formData,
         { headers: { "Content-Type": "application/json" } }
-      );
+        );
 
       const data = response.data;
       localStorage.setItem("token", data.token);
