@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { api } from "../utils/api";
-import { Link, useNavigate } from "react-router-dom";
 import bgImage from "../assets/woman-farm.png";
 import logo from "../assets/Logo 2.png";
 import backIcon from "../assets/arrow-icon.svg";
@@ -26,41 +26,41 @@ const BuyerReg: React.FC = () => {
   });
 
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState("");
+  const [message, setMessage] = useState<string | null>(null);
   const [isError, setIsError] = useState(false);
   const [fieldErrors, setFieldErrors] = useState<Record<string, string>>({});
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  // auto-dismiss toast
+  // Auto-dismiss toast
   useEffect(() => {
     if (message) {
-      const timer = setTimeout(() => setMessage(""), 3000);
+      const timer = setTimeout(() => setMessage(null), 4000);
       return () => clearTimeout(timer);
     }
   }, [message]);
 
-  // handle input changes
+  // Handle input changes
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
-    const { name, value, type, checked } = e.target as any;
+    const { name, value, type, checked } = e.target;
     setForm((prev) => ({
       ...prev,
       [name]: type === "checkbox" ? checked : value,
     }));
     setFieldErrors((prev) => ({ ...prev, [name]: "" }));
-    if (message) setMessage("");
+    if (message) setMessage(null);
   };
 
-  // password strength
+  // Password strength
   const getPasswordStrength = (password: string) => {
     if (password.length < 6) return "Weak";
     if (/[A-Z]/.test(password) && /\d/.test(password)) return "Strong";
     return "Medium";
   };
 
-  // validation
+  // Validation
   const validateForm = () => {
     const errors: Record<string, string> = {};
     if (!form.fullName.trim()) errors.fullName = "Full name is required";
@@ -83,7 +83,6 @@ const BuyerReg: React.FC = () => {
     }
   };
 
-  // form validity
   const isFormValid =
     form.fullName &&
     /^\d{10,15}$/.test(form.phoneNumber) &&
@@ -94,57 +93,50 @@ const BuyerReg: React.FC = () => {
     form.lga &&
     form.agreeToTerms;
 
-  // submit
-const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault();
-  setLoading(true);
-  setMessage("");
-  setIsError(false);
+  // ✅ Submit handler (like SignIn)
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
 
-  try {
-    validateForm();
-    const payload = {
-      fullName: form.fullName,
-      phoneNumber: form.phoneNumber,
-      email: form.email,
-      password: form.password,
-      confirmPassword: form.confirmPassword,
-      agreeToTerms: form.agreeToTerms,
-    };
+    try {
+      validateForm();
+      setLoading(true);
+      setMessage(null);
+      setIsError(false);
 
-    const baseURL =
-      import.meta.env.VITE_API_BASE_URL?.replace(/\/$/, "") ||
-      "https://farmer-market-1.vercel.app";
+      const response = await api.post(
+        `${import.meta.env.VITE_API_BASE_URL}/api/users/register/buyer`,
+        {
+          fullName: form.fullName,
+          phoneNumber: form.phoneNumber,
+          email: form.email,
+          password: form.password,
+          confirmPassword: form.confirmPassword,
+          agreeToTerms: form.agreeToTerms,
+        },
+        { headers: { "Content-Type": "application/json" } }
+      );
 
-    const response = await api.post(
-      `${baseURL}/api/users/register/buyer`,
-      payload,
-      { headers: { "Content-Type": "application/json" } }
-    );
+      const data = response.data;
 
-    setMessage(response.data.message || "Account created successfully 🎉");
-    setPhone(form.phoneNumber);
-    setTimeout(() => navigate("/verificationcode"), 1500);
-  } catch (error: any) {
-    if (axios.isAxiosError(error)) {
-      if (error.response) {
-        setMessage(error.response.data?.message || "Server error occurred");
-      } else if (error.request) {
-        setMessage("No response from server. Check your connection.");
+      if (data.success || data.message?.toLowerCase().includes("otp")) {
+        setMessage("✅ Account created successfully! Redirecting...");
+        setPhone(form.phoneNumber);
+        setTimeout(() => navigate("/verificationcode"), 1500);
       } else {
-        setMessage("Error setting up request. Try again.");
+        setIsError(true);
+        setMessage(data.message || "Registration failed");
       }
-    } else if (error instanceof Error) {
-      setMessage(error.message);
-    } else {
-      setMessage("Unexpected error. Please try again.");
+    } catch (err: unknown) {
+      setIsError(true);
+      if (axios.isAxiosError(err) && err.response) {
+        setMessage(err.response.data?.message || "Registration failed");
+      } else {
+        setMessage("Something went wrong. Please try again.");
+      }
+    } finally {
+      setLoading(false);
     }
-    setIsError(true);
-  } finally {
-    setLoading(false);
-  }
-};
-
+  };
 
   return (
     <div className="bg-light font-dm-sans min-h-screen w-full flex flex-col md:grid md:grid-cols-[1fr_1.4fr] max-w-6xl mx-auto overflow-hidden">
@@ -155,7 +147,9 @@ const handleSubmit = async (e: React.FormEvent) => {
       >
         <img src={logo} alt="FarmMarket Logo" className="w-40 md:w-36 mt-2" />
         <div className="mt-6">
-          <h1 className="text-2xl md:text-4xl font-bold mb-2">Hello, Welcome!</h1>
+          <h1 className="text-2xl md:text-4xl font-bold mb-2">
+            Hello, Welcome!
+          </h1>
           <p className="text-sm md:text-base font-light">
             Please create your verified buyer account to continue.
           </p>
@@ -171,7 +165,7 @@ const handleSubmit = async (e: React.FormEvent) => {
               <img
                 src={backIcon}
                 alt="Back"
-                className="w-6 absolute -left-4 md:-left-8top-0 sm:top-1 hover:opacity-50"
+                className="w-6 absolute -left-4 md:-left-8 top-0 sm:top-1 hover:opacity-50"
               />
             </Link>
             <h2 className="text-green-btn text-xl sm:text-2xl font-bold ml-6">
@@ -180,9 +174,12 @@ const handleSubmit = async (e: React.FormEvent) => {
           </div>
 
           {/* Form */}
-          <form onSubmit={handleSubmit} className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-[16px]">
+          <form
+            onSubmit={handleSubmit}
+            className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-[16px]"
+          >
             {/* Full Name, Phone, Email */}
-            {[
+            {[ 
               { label: "Full Name", name: "fullName", type: "text", span: 2 },
               { label: "Phone Number", name: "phoneNumber", type: "tel" },
               { label: "Email", name: "email", type: "email" },
@@ -196,11 +193,15 @@ const handleSubmit = async (e: React.FormEvent) => {
                   onChange={handleChange}
                   placeholder={`Enter your ${label.toLowerCase()}`}
                   className={`w-full mt-1 p-2 border rounded-md focus:ring-2 ${
-                    fieldErrors[name] ? "border-red-500 focus:ring-red-400" : "focus:ring-green-btn"
+                    fieldErrors[name]
+                      ? "border-red-500 focus:ring-red-400"
+                      : "focus:ring-green-btn"
                   }`}
                 />
                 {fieldErrors[name] && (
-                  <p className="text-red-500 text-xs mt-1">{fieldErrors[name]}</p>
+                  <p className="text-red-500 text-xs mt-1">
+                    {fieldErrors[name]}
+                  </p>
                 )}
               </div>
             ))}
@@ -215,7 +216,9 @@ const handleSubmit = async (e: React.FormEvent) => {
                 onChange={handleChange}
                 placeholder="Create a password"
                 className={`w-full mt-1 p-2 border rounded-md pr-10 focus:ring-2 ${
-                  fieldErrors.password ? "border-red-500 focus:ring-red-400" : "focus:ring-green-btn"
+                  fieldErrors.password
+                    ? "border-red-500 focus:ring-red-400"
+                    : "focus:ring-green-btn"
                 }`}
               />
               <button
@@ -242,7 +245,9 @@ const handleSubmit = async (e: React.FormEvent) => {
 
             {/* Confirm Password */}
             <div className="sm:col-span-2 relative">
-              <label className="block text-sm font-medium">Confirm Password</label>
+              <label className="block text-sm font-medium">
+                Confirm Password
+              </label>
               <input
                 type={showConfirmPassword ? "text" : "password"}
                 name="confirmPassword"
@@ -250,7 +255,9 @@ const handleSubmit = async (e: React.FormEvent) => {
                 onChange={handleChange}
                 placeholder="Re-enter your password"
                 className={`w-full mt-1 p-2 border rounded-md pr-10 focus:ring-2 ${
-                  fieldErrors.confirmPassword ? "border-red-500 focus:ring-red-400" : "focus:ring-green-btn"
+                  fieldErrors.confirmPassword
+                    ? "border-red-500 focus:ring-red-400"
+                    : "focus:ring-green-btn"
                 }`}
               />
               <button
@@ -262,67 +269,7 @@ const handleSubmit = async (e: React.FormEvent) => {
               </button>
             </div>
 
-            {/* State & LGA */}
-            <div>
-              <label className="block text-sm font-medium">State</label>
-              <select
-                name="state"
-                value={form.state}
-                onChange={handleChange}
-                className={`w-full mt-1 p-2 border rounded-md focus:ring-2 ${
-                  fieldErrors.state ? "border-red-500 focus:ring-red-400" : "focus:ring-green-btn"
-                }`}
-              >
-                <option value="">Select State</option>
-                <option value="lagos">Lagos</option>
-                <option value="abuja">Abuja</option>
-              </select>
-            </div>
-            <div>
-              <label className="block text-sm font-medium">LGA</label>
-              <select
-                name="lga"
-                value={form.lga}
-                onChange={handleChange}
-                className={`w-full mt-1 p-2 border rounded-md focus:ring-2 ${
-                  fieldErrors.lga ? "border-red-500 focus:ring-red-400" : "focus:ring-green-btn"
-                }`}
-              >
-                <option value="">Select LGA</option>
-                <option value="ikeja">Ikeja</option>
-                <option value="garki">Garki</option>
-              </select>
-            </div>
-
-            {/* Business Fields */}
-            <div>
-              <label className="block text-sm font-medium">
-                Business Name <span className="text-gray-400">(optional)</span>
-              </label>
-              <input
-                type="text"
-                name="businessName"
-                value={form.businessName}
-                onChange={handleChange}
-                placeholder="Enter your business name"
-                className="w-full mt-1 p-2 border rounded-md focus:ring-2 focus:ring-green-btn"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium">
-                Business Type <span className="text-gray-400">(optional)</span>
-              </label>
-              <input
-                type="text"
-                name="businessType"
-                value={form.businessType}
-                onChange={handleChange}
-                placeholder="Enter your business type"
-                className="w-full mt-1 p-2 border rounded-md focus:ring-2 focus:ring-green-btn"
-              />
-            </div>
-
-            {/* Terms */}
+            {/* Terms & Submit */}
             <div className="sm:col-span-2 flex items-center space-x-2 mt-2">
               <input
                 type="checkbox"
@@ -333,17 +280,24 @@ const handleSubmit = async (e: React.FormEvent) => {
               />
               <label className="text-sm text-gray-700">
                 I agree to{" "}
-                <a href="/terms" target="_blank" className="text-green-btn underline">
+                <a
+                  href="/terms"
+                  target="_blank"
+                  className="text-green-btn underline"
+                >
                   Terms & Conditions
                 </a>{" "}
                 and{" "}
-                <a href="/privacy" target="_blank" className="text-green-btn underline">
+                <a
+                  href="/privacy"
+                  target="_blank"
+                  className="text-green-btn underline"
+                >
                   Privacy Policy
                 </a>
               </label>
             </div>
 
-            {/* Submit */}
             <div className="sm:col-span-2 mt-4">
               <button
                 type="submit"
@@ -354,37 +308,10 @@ const handleSubmit = async (e: React.FormEvent) => {
                     : "bg-green-btn hover:bg-green-dark"
                 }`}
               >
-                {loading ? (
-                  <div className="flex items-center justify-center space-x-2">
-                    <svg
-                      className="animate-spin h-4 w-4 text-white"
-                      xmlns="http://www.w3.org/2000/svg"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                    >
-                      <circle
-                        className="opacity-25"
-                        cx="12"
-                        cy="12"
-                        r="10"
-                        stroke="currentColor"
-                        strokeWidth="4"
-                      ></circle>
-                      <path
-                        className="opacity-75"
-                        fill="currentColor"
-                        d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
-                      ></path>
-                    </svg>
-                    <span>Registering...</span>
-                  </div>
-                ) : (
-                  "Register"
-                )}
+                {loading ? "Registering..." : "Register"}
               </button>
             </div>
 
-            {/* Feedback Toast */}
             {message && (
               <div
                 className={`sm:col-span-2 mt-3 px-4 py-2 rounded-md text-center text-sm transition ${
