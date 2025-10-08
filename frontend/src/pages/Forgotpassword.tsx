@@ -27,9 +27,14 @@ const ForgotPassword = () => {
       setError(null);
       setMessage(null);
 
+    
+      const baseURL =
+        import.meta.env.VITE_API_BASE_URL?.replace(/\/$/, "") ||
+        "https://farmer-market-1.vercel.app";
+
       const res = await api.post(
-        "/api/users/forgot-password",
-        { email },
+        `${baseURL}/api/users//forgot-password"`,
+        email,
         { headers: { "Content-Type": "application/json" } }
       );
 
