@@ -17,15 +17,15 @@ connectDB();
 
 const PORT = process.env.PORT || 3500;
 
-// Allowed origins (local + production)
+//  Allowed origins (local + production)
 const allowedOrigins = [
   "http://localhost:5173",
   "http://localhost:3000",
-  "http://localhost:3500",
-  "https://farmer-market-original.vercel.app",
+  "https://farmer-market-1-front.vercel.app",
+  "https://farmer-market-1-front-easyjqdp0-peters-projects-122ba8b0.vercel.app"
 ];
 
-// ✅ CORS middleware
+// ORS middleware
 app.use(
   cors({
     origin: (origin, callback) => {
@@ -38,18 +38,6 @@ app.use(
     credentials: true,
   })
 );
-
-// ✅ Handle preflight requests
-app.options("*", cors({
-  origin: (origin, callback) => {
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-  credentials: true,
-}));
 
 app.use(express.json());
 app.use(morgan("dev"));
@@ -70,5 +58,5 @@ if (process.env.NODE_ENV !== "production") {
   });
 }
 
-// Export for Vercel serverless handler
+//  Export for Vercel serverless handler
 export default app;
