@@ -152,7 +152,10 @@ const Sidebar = ({ open, onClose }: Props) => {
               {/* TRANSACTION TAB */}
               <div className={sectionTitle}>Transaction</div>
               <nav className="flex flex-col gap-2 ml-3">
-                <NavLink to="/orders" className={linkclass}>
+                <NavLink
+                  to="/buyerdashboard/ordermanagement"
+                  className={linkclass}
+                >
                   <Box className="w-5 h-5" /> Order Management
                 </NavLink>
 
