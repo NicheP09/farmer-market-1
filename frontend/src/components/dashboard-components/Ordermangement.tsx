@@ -1,7 +1,6 @@
 import {
   Bell,
   TrendingUp,
-  PiggyBank,
   Clock,
   ShoppingCart,
   BadgeCheck,
@@ -13,16 +12,12 @@ import StatsCard from "./StatsCard";
 import OrderTable from "./OrderTable";
 import Image from "../../assets/marketplace-images/Ellipse 1.svg";
 
-const Overview = () => {
+const OrderManagement = () => {
   return (
     <>
       <div className="hidden md:flex items-center justify-between px-6  w-full md:w-[95%] py-3 border-b-2 border-[#e6e6e6]">
         <div className="">
-          <h2 className="text-black font-bold text-3xl">Dashboard</h2>
-          <div className="text-[#999] text-[16px] font-medium mt-4">
-            <span className=" mr-2">Welcome</span>
-            <span className="font-semibold">Caleb</span>
-          </div>
+          <h2 className="text-black font-bold text-3xl">Order Management</h2>
         </div>
 
         <div className="flex items-center gap-3">
@@ -46,20 +41,6 @@ const Overview = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-6 mt-6 w-full md:w-[95%]">
         {/* CARD 1 */}
         <StatsCard
-          title="Total Amount"
-          value="₦20,000"
-          hint={
-            <div className="flex items-center gap-1.5 font-medium text-pri text-sm">
-              <TrendingUp className="w-4 h-4 font-bold mr-1" />
-              +12% this week
-            </div>
-          }
-          className="bg-[#ebf4e6]"
-          icon={<PiggyBank className="w-6 h-6 text-pri" />}
-        />
-
-        {/* CARD 2 */}
-        <StatsCard
           title="Total Orders"
           value={20}
           hint={
@@ -72,7 +53,7 @@ const Overview = () => {
           icon={<ShoppingCart className="w-6 h-6 text-[#e57300]" />}
         />
 
-        {/* CARD 3 */}
+        {/* CARD 2 */}
         <StatsCard
           title="Completed Orders"
           value={95}
@@ -86,7 +67,7 @@ const Overview = () => {
           icon={<BadgeCheck className="w-6 h-6 text-[#a9961e]" />}
         />
 
-        {/* CARD 4 */}
+        {/* CARD 3 */}
         <StatsCard
           title="Pending Orders"
           value={3}
@@ -94,7 +75,7 @@ const Overview = () => {
           icon={<Clock className="w-6 h-6 text-blue-600" />}
         />
 
-        {/* CARD 5 */}
+        {/* CARD 4 */}
         <StatsCard
           title="Rejected Orders"
           value={4}
@@ -153,4 +134,4 @@ const Overview = () => {
   );
 };
 
-export default Overview;
+export default OrderManagement;

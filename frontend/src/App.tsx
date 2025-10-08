@@ -10,6 +10,7 @@ import "./App.css";
 
 import BuyerDashboard from "./pages/BuyerDashboard";
 import Overview from "./components/dashboard-components/Overview";
+import OrderManagement from "./components/dashboard-components/Ordermangement";
 
 import FarmBusinessDetails from "./pages/FarmBusinessDetails";
 import VerificationDetails from "./pages/VerificationDetails";
@@ -31,6 +32,8 @@ import OrderTracking from "./pages/OrderTracking";
 import PaymentMethod from "./pages/PaymentMethodPage";
 import BuyerPaymentAcceptance from "./pages/BuyerPaymentAcceptancePage";
 import ForgotPassword from "./pages/Forgotpassword";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
 
 import OtpPage from "./pages/OtpPage";
 
@@ -61,6 +64,7 @@ function App() {
         <Route path="/buyerdashboard" element={<BuyerDashboard />}>
           <Route index element={<Overview />} />
           <Route path="overview" element={<Overview />} />
+          <Route path="ordermanagement" element={<OrderManagement />} />
         </Route>
 
         <Route path="/admindashboard" element={<Admindashboard />}>
@@ -89,6 +93,8 @@ function App() {
         <Route path="forgot" element={<ForgotPassword />} />
         <Route path="buyerreg" element={<BuyerReg />} />
         <Route path="verificationcode" element={<VerificationCode />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
         <Route
           path="successpagefarmer"
           element={<SuccessPage link="/farmer" />}
