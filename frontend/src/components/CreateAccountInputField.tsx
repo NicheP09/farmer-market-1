@@ -130,7 +130,7 @@ function CreateAccountInputField() {
       setLoading(true);
 
       await api.post(
-        "/api/users/register/farmer",
+        "https://farmer-market-1.vercel.app/api/users/register/farmer",
         { ...formData },
         { headers: { "Content-Type": "application/json" } }
       );
