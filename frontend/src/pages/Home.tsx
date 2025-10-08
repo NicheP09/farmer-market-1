@@ -71,17 +71,21 @@ const Home = () => {
               is fresh, natural, and sustainably grown.
             </p>
             <ul className="mt-6 space-y-3">
+              <li className="flex items-start md:items-center text-gray-600">
+                <span className="w-3 h-3 mt-1.5 bg-pri rounded-full mr-3"></span>
+                <span>
+                  100% farm-fresh produce delivered straight to your door.
+                </span>
+              </li>
               <li className="flex md:items-center text-gray-600">
-                <span className="w-3 h-3 bg-pri rounded-full mr-3"></span>
-                100% farm-fresh produce delivered straight to your door.
+                <span className="w-3 h-3 mt-1.5 bg-pri rounded-full mr-3"></span>
+                <span>
+                  Fair prices that support our farmers and local communities.
+                </span>
               </li>
-              <li className="flex items-center text-gray-600">
-                <span className="w-3 h-3 bg-pri rounded-full mr-3"></span>
-                Fair prices that support our farmers and local communities.
-              </li>
-              <li className="flex items-center text-gray-600">
-                <span className="w-3 h-3 bg-pri rounded-full mr-3"></span>
-                Quality you can tatse, freshness you can trust.
+              <li className="flex md:items-center text-gray-600">
+                <span className="w-3 h-3 mt-1.5 bg-pri rounded-full mr-3"></span>
+                <span>Quality you can tatse, freshness you can trust.</span>
               </li>
             </ul>
             <div className="mt-6 md:mb-20">
