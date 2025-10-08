@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { api } from "../utils/api";
 import { Link, useNavigate } from "react-router-dom";
-import { Eye, EyeOff } from "lucide-react"; // for password toggle
+import { Eye, EyeOff } from "lucide-react";
 import backIcon from "../assets/arrow-icon.svg";
 
 type AuthenticateForm = {
@@ -78,7 +78,7 @@ function CreateAccountInputField() {
   const [formInputError, setFormInputError] = useState<string | null>(null);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (formInputError) setFormInputError(null); // clear error on input
+    if (formInputError) setFormInputError(null);
     const { name, value, type, checked } = e.target;
     setFormData((prev) => ({
       ...prev,
@@ -86,15 +86,13 @@ function CreateAccountInputField() {
     }));
   };
 
-  const showError = (message: string) => {
-    setFormInputError(message);
-  };
+  const showError = (message: string) => setFormInputError(message);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setFormInputError(null);
 
-    // Validation
+    // Basic validation
     if (
       !formData.firstName ||
       !formData.lastName ||
@@ -129,14 +127,19 @@ function CreateAccountInputField() {
     try {
       setLoading(true);
 
-      await api.post(
-        "https://farmer-market-1.vercel.app/api/users/register/farmer",
-        { ...formData },
+      const baseURL =
+        import.meta.env.VITE_API_BASE_URL?.replace(/\/$/, "") ||
+        "https://farmer-market-1.vercel.app";
+
+      const response = await api.post(
+        `${baseURL}/api/users/register/farmer`,
+        formData,
         { headers: { "Content-Type": "application/json" } }
       );
 
+      console.log("✅ Registration success:", response.data);
       navigate("/businessdetails");
-      // Reset form
+
       setFormData({
         firstName: "",
         lastName: "",
@@ -146,8 +149,6 @@ function CreateAccountInputField() {
         confirmPassword: "",
         agreeToTerms: false,
       });
-
-      
     } catch (error: any) {
       if (axios.isAxiosError<{ message: string }>(error)) {
         showError(error.response?.data?.message || "Server error occurred");
@@ -222,7 +223,6 @@ function CreateAccountInputField() {
           showPasswordToggle
         />
 
-        {/* Terms */}
         <div className="flex items-center gap-2 mt-2 text-sm">
           <input
             type="checkbox"
@@ -239,14 +239,12 @@ function CreateAccountInputField() {
           </span>
         </div>
 
-        {/* Feedback */}
         {formInputError && (
           <div className="text-red-500 text-[16px] bg-red-100 border border-red-300 px-2 rounded">
             {formInputError}
           </div>
         )}
 
-        {/* Buttons */}
         <div className="flex gap-3 pt-3">
           <button
             type="submit"
