@@ -104,14 +104,14 @@ const PaymentMethodPage = () => {
     // REDIRECT CONFIRMATION PAGE
     setTimeout(() => {
       navigate("/buyerpaymentacceptance");
-    }, 1000);
+    }, 2000);
   };
 
   return (
-    <div className="max-w-[1000px]  mx-auto px-6 py-5 sm:py-6 md:py-6">
+    <div className="max-w-[1000px]px-1 py-1 sm:px-3 mx-auto md:px-6  sm:py-3  md:py-6">
       {/* HEADER */}
       <header className="font-dm-sans sticy top-0 left-0 text-white">
-        <div className="w-[150px] md:w-[180px] ">
+        <div className="w-[150px] md:w-[180px] my-4  ">
           <NavLink to="/">
             <img src={Logo} alt="Logo" className="cursor-pointer" />
           </NavLink>
@@ -119,7 +119,7 @@ const PaymentMethodPage = () => {
       </header>
 
       {/*  */}
-      <main className="mt-5 rounded-xl bg-[#d9d9d9]">
+      <main className="mt-5 rounded-xl pb-13 bg-[#d9d9d9]">
         <div className="bg-pri text-center font-bold text-xl text-white rounded-sm py-4 w-full">
           Choose Payment Method
         </div>
@@ -127,7 +127,7 @@ const PaymentMethodPage = () => {
         <form
           action=""
           onSubmit={handleSubmit}
-          className="w-[80%] md:w-[60%] px-3 py-6 mx-auto flex flex-col space-y-2"
+          className="w-[95%] md:w-[60%] px-3 py-6 mx-auto flex flex-col space-y-2"
         >
           {/* CREDIT AND DEBIT CARD */}
           <div>
@@ -249,7 +249,7 @@ const PaymentMethodPage = () => {
           <button
             type="submit"
             disabled={!isFormValid || submitting}
-            className={`w-full py-3 rounded-md font-semibold text-[#fff] ${
+            className={`w-full mt-4 py-3 rounded-md font-semibold text-[#fff] ${
               isFormValid
                 ? "bg-pri hover:bg-green-700 cursor-pointer"
                 : "bg-green-200 cursor-not-allowed"

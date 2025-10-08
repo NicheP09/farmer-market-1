@@ -56,7 +56,7 @@ const Marketplace = () => {
 
             <div className="">
               <button onClick={() => setOpen(true)}>
-                <Menu className="w-7 h-7 font-bold" />
+                <Menu size={28} className=" font-bold" />
               </button>
             </div>
           </div>
