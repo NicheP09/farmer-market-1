@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { api } from "../utils/api";
+import  api  from "../utils/api";
 import backIcon from "../assets/arrow-icon.svg";
 import bgImage from "../assets/Rectangle 28.png";
 import logo from "../assets/Asset 10.png";
