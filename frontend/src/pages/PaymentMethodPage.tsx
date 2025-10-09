@@ -108,7 +108,7 @@ const PaymentMethodPage = () => {
   };
 
   return (
-    <div className="max-w-[1000px]px-1 py-1 sm:px-3 mx-auto md:px-6  sm:py-3  md:py-6">
+    <div className="max-w-[900px] px-1 py-1 sm:px-3 mx-auto md:px-6  sm:py-3  md:py-6">
       {/* HEADER */}
       <header className="font-dm-sans sticy top-0 left-0 text-white">
         <div className="w-[150px] md:w-[180px] my-4  ">

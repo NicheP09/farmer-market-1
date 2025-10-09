@@ -16,10 +16,10 @@ import Image from "../../assets/marketplace-images/Ellipse 1.svg";
 const Overview = () => {
   return (
     <>
-      <div className="hidden md:flex items-center justify-between px-6  w-full md:w-[95%] py-3 border-b-2 border-[#e6e6e6]">
+      <div className="hidden md:flex items-center justify-between px-6  w-full md:w-[95%] pb-3 border-b-2 border-[#e6e6e6]">
         <div className="">
           <h2 className="text-black font-bold text-3xl">Dashboard</h2>
-          <div className="text-[#999] text-[16px] font-medium mt-4">
+          <div className="text-[#999] text-[16px] font-medium mt-2">
             <span className=" mr-2">Welcome</span>
             <span className="font-semibold">Caleb</span>
           </div>
@@ -36,7 +36,7 @@ const Overview = () => {
           </div>
           <div className="">
             <button>
-              <img src={Image} alt="" className="w-11" />
+              <img src={Image} alt="" className="w-10 h-10" />
             </button>
           </div>
         </div>
@@ -44,8 +44,10 @@ const Overview = () => {
 
       {/* MOBILE DASHBOARD NAME */}
       <div className="md:hidden px-6 border-b pb-2">
-        <h2 className="text-black font-bold text-3xl">Dashboard</h2>
-        <div className="text-[#999] text-[16px] font-medium mt-4">
+        <h2 className="text-black font-bold text:text-2xl  md:text-3xl">
+          Dashboard
+        </h2>
+        <div className="text-[#999] text-[16px] font-medium mt-2">
           <span className=" mr-2">Welcome</span>
           <span className="font-semibold">Caleb</span>
         </div>
@@ -122,11 +124,11 @@ const Overview = () => {
             </p>
           </div>
           <div className="flex items-center gap-3">
-            <button className="px-2 md:px-4 py-2 font-medium  flex items-center text-[13px] gap-2 border rounded md border-[#bfbfbf]">
+            <button className="px-2 md:px-4 py-2 font-medium cursor-pointer  flex items-center text-[13px] gap-2 border rounded md border-[#bfbfbf]">
               <RotateCw className="w-4 h-4  inline-block" />
               Refresh
             </button>
-            <button className="px-2 md:px-4 py-2 font-medium flex items-center text-[13px] gap-2 border rounded md border-[#bfbfbf]">
+            <button className="px-2 md:px-4 py-2 font-medium cursor-pointer flex items-center text-[13px] gap-2 border rounded md border-[#bfbfbf]">
               <Filter className="w-4 h-4 mrnline-block" />
               Filter
             </button>

@@ -2,6 +2,9 @@ import { BuyerRequestCard } from "../../BuyerRequestCard";
 
 import type { BuyerRequest } from "../../BuyerRequestCard";
 
+import Image1 from "../../../assets/Buyerrequest images/Ellipse 1 (2).svg";
+import Image2 from "../../../assets/Buyerrequest images/Ellipse 2.svg";
+
 // Dummy data
 const dummyRequests: BuyerRequest[] = [
   {
@@ -15,8 +18,7 @@ const dummyRequests: BuyerRequest[] = [
       { name: "Potatoes", quantity: 15000 },
       { name: "Beans", quantity: 5000 },
     ],
-    avatarUrl:
-      "https://images.unsplash.com/photo-1535713875002-d1d0cfce54f6?auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
+    avatarUrl: Image1,
   },
   {
     id: "2",
@@ -29,8 +31,7 @@ const dummyRequests: BuyerRequest[] = [
       { name: "Potatoes", quantity: 15000 },
       { name: "Beans", quantity: 5000 },
     ],
-    avatarUrl:
-      "https://images.unsplash.com/photo-1520813792240-56ff42637edf?auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
+    avatarUrl: Image2,
   },
   {
     id: "3",
@@ -43,18 +44,56 @@ const dummyRequests: BuyerRequest[] = [
       { name: "Potatoes", quantity: 15000 },
       { name: "Beans", quantity: 5000 },
     ],
-    avatarUrl:
-      "https://images.unsplash.com/photo-1507003211169-e69fe1c5a32b?auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
+    avatarUrl: Image1,
+  },
+  {
+    id: "1",
+    name: "Chukwunonso Ikenna",
+    location: "Aba North, Abia",
+    distance: "2.5km away",
+    time: "10:16 AM",
+    items: [
+      { name: "Fresh Tomatoes", quantity: 10000 },
+      { name: "Potatoes", quantity: 15000 },
+      { name: "Beans", quantity: 5000 },
+    ],
+    avatarUrl: Image1,
+  },
+  {
+    id: "2",
+    name: "Nonso Ebuka",
+    location: "Demsa, Adamawa",
+    distance: "100km away",
+    time: "10:16 AM",
+    items: [
+      { name: "Fresh Tomatoes", quantity: 10000 },
+      { name: "Potatoes", quantity: 15000 },
+      { name: "Beans", quantity: 5000 },
+    ],
+    avatarUrl: Image2,
+  },
+  {
+    id: "3",
+    name: "Daniel Chimsy",
+    location: "Bodija, Ibadan",
+    distance: "300km away",
+    time: "10:16 AM",
+    items: [
+      { name: "Fresh Tomatoes", quantity: 10000 },
+      { name: "Potatoes", quantity: 15000 },
+      { name: "Beans", quantity: 5000 },
+    ],
+    avatarUrl: Image1,
   },
 ];
 
 const FarmerBuyerRequest = () => {
   return (
-    <div className="min-h-screen w-full px-6 md:w-[95%] mx-auto bg-gray-100 font-sans flex">
+    <div className="min-h-screen w-full px-6 md:w-[95%] mx-auto font-sans flex">
       {/* Main Content */}
       <div className="flex-1 ">
         {/* Header */}
-        <header className="flex items-center justify-between p-6 bg-white border-b border-gray-200">
+        <header className="flex items-center justify-between border-b pb-4 border-gray-200">
           <h1 className="text-2xl font-semibold text-gray-800">
             Buyers Request
           </h1>
@@ -68,7 +107,7 @@ const FarmerBuyerRequest = () => {
         </header>
 
         {/* Search & Filter Section */}
-        <section className="p-6">
+        <section className="mt-6">
           <div className="flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-4">
             <input
               type="text"
@@ -85,7 +124,7 @@ const FarmerBuyerRequest = () => {
         </section>
 
         {/* Requests Grid */}
-        <main className="p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <main className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {dummyRequests.map((req) => (
             <BuyerRequestCard key={req.id} request={req} />
           ))}

@@ -90,7 +90,7 @@ const Sidebar = ({ open, onClose }: Props) => {
             {/* USER */}
             <div className="mt-10 pl-3 ">
               <div className="flex items-center gap-3">
-                <img src={Image} alt="" className="w-10" />
+                <img src={Image} alt="" className="w-10 h-10" />
                 <div className="flex flex-col gap-0.5">
                   <div className="font-semibold text-sm">John Caleb Ekong</div>
                   <div className="text-sm font-medium text-[#999999]">
@@ -188,7 +188,7 @@ const Sidebar = ({ open, onClose }: Props) => {
               {/* USER */}
               <div className="mt-auto pl-3  py-15 ">
                 <div className="flex items-center gap-3">
-                  <img src={Image} alt="" className="w-10" />
+                  <img src={Image} alt="" className="w-10 h-10" />
                   <div className="flex flex-col gap-0.5">
                     <div className="font-bold text-lg">John Caleb Ekong</div>
                     <div className="text-base font-medium text-[#999999]">

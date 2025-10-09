@@ -60,7 +60,7 @@ export default function FarmerSidebar({ isOpen, onClose }: SidebarProps) {
 
   // Shared classes
   const baseLink = `flex items-center gap-3 pl-4 pr-2 py-1 rounded-md text-black font-semibold hover:text-pri  transition cursor-pointer`;
-  const activeLink = "bg-pri text-white font-bold ";
+  const activeLink = "bg-pri text-white hover:text-white font-bold ";
 
   return (
     <>
