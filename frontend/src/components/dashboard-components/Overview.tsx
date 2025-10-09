@@ -42,6 +42,15 @@ const Overview = () => {
         </div>
       </div>
 
+      {/* MOBILE DASHBOARD NAME */}
+      <div className="md:hidden px-6 border-b pb-2">
+        <h2 className="text-black font-bold text-3xl">Dashboard</h2>
+        <div className="text-[#999] text-[16px] font-medium mt-4">
+          <span className=" mr-2">Welcome</span>
+          <span className="font-semibold">Caleb</span>
+        </div>
+      </div>
+
       {/* CARDS */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-6 mt-6 w-full md:w-[95%]">
         {/* CARD 1 */}

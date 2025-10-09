@@ -1,6 +1,6 @@
-
 import { useState } from "react";
 import { Send, Settings, LogOut, CircleQuestionMark } from "lucide-react";
+import { Link } from "react-router-dom";
 
 import Logo from "../../assets/Group(1).png";
 import Monitor from "../../assets/monitor-mobbile.png";
@@ -8,6 +8,7 @@ import Support from "../../assets/material-symbols-light_support-agent-outline.p
 import Group from "../../assets/Group.png";
 import Track from "../../assets/solar_gps-outline.png";
 import Wallet from "../../assets/solar_wallet-outline.png";
+import { Mail } from "lucide-react";
 
 export default function Sidebar() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
@@ -62,9 +63,11 @@ export default function Sidebar() {
                   <span>🏠</span>
                   <span>Dashboard</span>
                 </li>
-                <li className="flex items-center gap-3 text-gray-600">
+                <li className="flex cursor-pointer items-center gap-3 text-gray-600">
                   <img src={Group} alt="" />
-                  <span>Upload produce</span>
+                  <span>
+                    <Link to="/upload">Upload produce</Link>
+                  </span>
                 </li>
               </ul>
             </div>
@@ -77,8 +80,11 @@ export default function Sidebar() {
                 <li className="flex items-center gap-3 text-gray-600 py-1">
                   <img src={Monitor} alt="" /> Order Management
                 </li>
-                <li className="flex items-center gap-3 text-gray-600 py-1">
-                  📨 Buyers Request
+                <li className="flex items-center gap-3 cursor-pointer text-gray-600 py-1">
+                  <Mail className="w-5 h-5" />
+                  <Link to="/buyerrequest">
+                    <span>Buyer Request</span>
+                  </Link>
                 </li>
                 <li className="flex items-center gap-3 text-gray-600 py-1">
                   <Send className="text-black size-4" /> Deliveries

@@ -11,6 +11,7 @@ import "./App.css";
 import BuyerDashboard from "./pages/BuyerDashboard";
 import Overview from "./components/dashboard-components/Overview";
 import OrderManagement from "./components/dashboard-components/Ordermangement";
+import BuyerRequest from "./pages/Request";
 
 import FarmBusinessDetails from "./pages/FarmBusinessDetails";
 import VerificationDetails from "./pages/VerificationDetails";
@@ -73,6 +74,7 @@ function App() {
           <Route path="dispute" element={<DisputePage />} />
         </Route>
 
+        <Route path="/buyerrequest" element={<BuyerRequest />} />
         <Route path="/cartpage" element={<CartPage />} />
         <Route path="/marketplace" element={<Marketplace />} />
         <Route path="/wallet" element={<WalletPage />} />

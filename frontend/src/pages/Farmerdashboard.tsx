@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import {
   ShoppingCart,
   Ban,
@@ -9,6 +10,7 @@ import {
   LogOut,
   CircleQuestionMark,
   RotateCw,
+  Mail,
 } from "lucide-react";
 import Money from "../assets/emojione-monotone_money-bag.png";
 import Logo from "../assets/Group(1).png";
@@ -121,9 +123,11 @@ const Dashboard: React.FC = () => {
                   <span>🏠</span>
                   <span>Dashboard</span>
                 </li>
-                <li className="flex items-center gap-3 text-gray-600">
+                <li className="flex cursor-pointer items-center gap-3 text-gray-600">
                   <img src={Group} alt="" />
-                  <span>Upload produce</span>
+                  <Link to="/upload">
+                    <span>Upload produce</span>
+                  </Link>
                 </li>
               </ul>
             </div>
@@ -137,7 +141,10 @@ const Dashboard: React.FC = () => {
                   <img src={Monitor} alt="" /> Order Management
                 </li>
                 <li className="flex items-center gap-3 text-gray-600 py-1">
-                  📨 Buyers Request
+                  <Mail className="w-5 h-5" />
+                  <Link to="/buyerrequest">
+                    <span>Buyer Request</span>
+                  </Link>
                 </li>
                 <li className="flex items-center gap-3 text-gray-600 py-1">
                   <Send className="text-black size-4" /> Deliveries
@@ -313,16 +320,16 @@ const Dashboard: React.FC = () => {
           </h4>
 
           <div className="flex justify-start my-6 gap-3 flex-row items-center text-xs text-gray-500 ">
-            <div className="border border-2 border-black/20 rounded-sm bg-transparent cursor-pointer active:bg-green-500 px-[2px] py-[4px] ">
+            <div className=" border-2 border-black/20 rounded-sm bg-transparent cursor-pointer active:bg-green-500 px-[2px] py-[4px] ">
               All
             </div>
-            <div className="border border-2 border-black/20 rounded-sm bg-transparent cursor-pointer active:bg-green-500 px-8 py-[4px]">
+            <div className=" border-2 border-black/20 rounded-sm bg-transparent cursor-pointer active:bg-green-500 px-8 py-[4px]">
               Pending
             </div>
-            <div className="border border-2 border-black/20 rounded-sm bg-transparent cursor-pointer active:bg-green-500 px-8 py-[4px]">
+            <div className=" border-2 border-black/20 rounded-sm bg-transparent cursor-pointer active:bg-green-500 px-8 py-[4px]">
               Accepted
             </div>
-            <div className="border border-2 border-black/20 rounded-sm bg-transparent cursor-pointer active:bg-green-500 px-8 py-[4px]">
+            <div className=" border-2 border-black/20 rounded-sm bg-transparent cursor-pointer active:bg-green-500 px-8 py-[4px]">
               Rejected
             </div>
           </div>
