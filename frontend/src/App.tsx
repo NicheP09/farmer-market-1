@@ -13,6 +13,11 @@ import Overview from "./components/dashboard-components/Overview";
 import OrderManagement from "./components/dashboard-components/Ordermangement";
 import BuyerRequest from "./pages/Request";
 
+import FarmerOverview from "./components/dashboard-components/farmerdashboard-components2/FarmerOverview";
+import FarmerUpload from "./components/dashboard-components/farmerdashboard-components2/FarmerUpload";
+
+import FarmerBuyerRequest from "./components/dashboard-components/farmerdashboard-components2/BuyerRequest";
+
 import FarmBusinessDetails from "./pages/FarmBusinessDetails";
 import VerificationDetails from "./pages/VerificationDetails";
 import BankingPayment from "./pages/BankingPayment";
@@ -37,6 +42,7 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 
 import OtpPage from "./pages/OtpPage";
+import FarmerDashboardNew from "./components/dashboard-components/farmerdashboard-components2/FarmerDashboard2";
 
 // Example extra pages (create About.jsx, NotFound.jsx later)
 //function About() {
@@ -68,6 +74,14 @@ function App() {
           <Route path="ordermanagement" element={<OrderManagement />} />
         </Route>
 
+        {/* FARMER2 */}
+        <Route path="/farmerdashboardnew" element={<FarmerDashboardNew />}>
+          <Route index element={<FarmerOverview />} />
+          <Route path="farmeroverview" element={<FarmerOverview />} />
+          <Route path="farmerupload" element={<FarmerUpload />} />
+          <Route path="farmerbuyerrequest" element={<FarmerBuyerRequest />} />
+        </Route>
+
         <Route path="/admindashboard" element={<Admindashboard />}>
           <Route index element={<UserVerification />} />
           <Route path="userverification" element={<UserVerification />} />
@@ -97,6 +111,10 @@ function App() {
         <Route path="verificationcode" element={<VerificationCode />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
+
+        {/* VIEWING THE SIDEBAR */}
+        <Route path="/farmerdashboardnew" element={<FarmerDashboardNew />} />
+
         <Route
           path="successpagefarmer"
           element={<SuccessPage link="/farmer" />}
