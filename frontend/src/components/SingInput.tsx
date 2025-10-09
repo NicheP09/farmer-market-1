@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
-import { api } from "../utils/api";
 import { Eye, EyeOff } from "lucide-react";
+import  api  from "../utils/api"; // ✅ imported correctly
 import backIcon from "../assets/arrow-icon.svg";
 
 type AuthCredentials = {
@@ -50,25 +50,21 @@ const SignInput = () => {
       setError(null);
       setSuccess(null);
 
-     
-      const baseURL =
-        import.meta.env.VITE_API_BASE_URL?.replace(/\/$/, "") ||
-        "https://farmer-market-1.vercel.app";
-
-      const response = await api.post(
-        `${baseURL}/api/users/login`,
-        formData,
-        { headers: { "Content-Type": "application/json" } }
-      );
+      // ✅ Send request using configured axios instance
+      const response = await api.post("/api/users/login", formData);
 
       const data = response.data;
-      localStorage.setItem("token", data.token);
-      showSuccess("Signed in successfully!");
-      navigate("/buyerdashboard");
-      setFormData({ email: "", password: "" });
+      if (data?.token) {
+        localStorage.setItem("token", data.token);
+        showSuccess("Signed in successfully!");
+        navigate("/buyerdashboard");
+        setFormData({ email: "", password: "" });
+      } else {
+        showError("Invalid response from server");
+      }
     } catch (err: unknown) {
       if (axios.isAxiosError(err) && err.response) {
-        showError(err.response.data.message || "Login failed");
+        showError(err.response.data?.message || "Login failed");
       } else {
         showError("Something went wrong");
       }

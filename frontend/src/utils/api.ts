@@ -1,14 +1,11 @@
 import axios from "axios";
 
-
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL, 
+  baseURL: import.meta.env.VITE_API_BASE_URL, // ✅ must match .env
   headers: {
     "Content-Type": "application/json",
   },
-  withCredentials: true, // enable if you’re using cookies/sessions
+  withCredentials: true,
 });
 
-export {
-    api
-}
+export default api; // ✅ use default export
